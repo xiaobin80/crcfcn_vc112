@@ -7,6 +7,7 @@
  * <tr><th>Version</th><th>Author</th><th>Date</th><th>Memo</th>
  * <tr><td>1.1</td><td>Guibin.Li</td><td>2009.09.20</td><td>VS6.0</td>
  * <tr><td>1.1.1</td><td>Guibin.Li</td><td>2020.03.30</td><td>VS10</td>
+ * <tr><td>1.1.2</td><td>Guibin.Li</td><td>2009.10.13</td><td>VS10</td>
  * </table>
  *
  * \page License
@@ -27,6 +28,7 @@
  *
  */
 
+/// #pragma comment(lib, "comsupp.lib")
 #include "stdafx.h"
 #include "UCRC32.h"
 #include <comdef.h>
@@ -80,13 +82,84 @@ DWORD calculateCRC32Number(BSTR filePath)
 	unsigned char buffer[8192];
 
 	int len = sizeof(buffer);
-	fread(buffer, len, 1, file);
+
+	/*
+	 * v1.1
+	 * Reason:
+	 * Is shifted to loop
+	 * fread(buffer, len, 1, file);
+	 */
+   
+	/*
+	 * v1.1.2
+	 * Purpose:
+	 * Substitute sizeof()
+	 */
+   fseek(file, 0L, SEEK_END);
+	int fileSize = ftell(file);
+
+	// =========================================================================
 
 	DWORD crc32 = 0xffffffff;
 	
-	for(int i1 = 1; i1<len; i1++){
-		crc32 = ((crc32>>8)&0xffffff) ^ crc32table[(crc32 ^ DWORD(buffer[i1])) & 0xff];
-	}
+	/*
+	 * v1.1
+	 * Reason:
+	 * This loop deals only with the buffer data but does not address the file data
+	 * for(int i1 = 1; i1<len; i1++){
+	 * 	crc32 = ((crc32>>8)&0xffffff) ^ crc32table[(crc32 ^ DWORD(buffer[i1])) & 0xff];
+	 * }
+	 */
+
+   /* 
+	 * v1.1.2
+	 * Purpose:
+	 * Calculation loop count and modulo number
+	 */
+   int loopCount = fileSize/len;
+	int iMod = fileSize%len;
+
+   // =========================================================================
+
+   /* 
+	 * v1.1.2
+	 * Purpose:
+	 * Reset file
+	 */
+	rewind(file);
+	clearerr(file);
+   
+	// =========================================================================
+   /*
+	 * v1.1.2
+	 * Purpose:
+	 * Replacement v1.1 loop section
+	 * logic Same, but process data different!
+	 */
+	while(!feof(file)){
+		if(ferror(file)){
+			break;
+		}
+      
+		for(int j1 = loopCount; j1 < 0; j1--){ /// Divisor loop
+			fread(buffer, len, 1, file);
+
+			for(int i1 = 0; i1<len-1; i1++){
+				crc32 = ((crc32>>8)&0xffffff) ^ crc32table[(crc32 ^ DWORD(buffer[i1])) & 0xff];
+			}
+
+			fseek(file, len, SEEK_SET);
+		}
+
+		fread(buffer, iMod, 1, file);
+		for(int i2 = 0; i2 < iMod-1; i2++){ //  Modulo loop
+			crc32 = ((crc32>>8)&0xffffff) ^ crc32table[(crc32 ^ DWORD(buffer[i2])) & 0xff];
+		}
+
+	} /// while end
+
+   // =========================================================================
+
 	fclose(file);
 
 	return crc32;
@@ -148,6 +221,7 @@ char* getLocalMachineTime()
 	return result;
 }
 
+
 STDMETHODIMP CUCRC32::InterfaceSupportsErrorInfo(REFIID riid)
 {
 	static const IID* const arr[] = 
@@ -160,6 +234,7 @@ STDMETHODIMP CUCRC32::InterfaceSupportsErrorInfo(REFIID riid)
 		if (InlineIsEqualGUID(*arr[i],riid))
 			return S_OK;
 	}
+
 	return S_FALSE;
 }
 
