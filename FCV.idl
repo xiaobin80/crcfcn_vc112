@@ -1,0 +1,47 @@
+// FCV.idl : IDL source for FCV
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (FCV.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(A5A64E25-B172-4359-BFC5-BCC476C8B623),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IUCRC32 : IDispatch{
+	[id(1), helpstring("method CalCRC32")] HRESULT CalCRC32([in] BSTR filePath, [out,retval] ULONG* presult);
+	[id(2), helpstring("method ReadFCN")] HRESULT ReadFCN([in] BSTR loadFile, [out,retval] ULONG* presult);
+	[id(3), helpstring("method SaveFCN")] HRESULT SaveFCN([in] BSTR saveFile, [in] BSTR CheckFilePath, [out,retval] LONG* pstate);
+};
+[
+	uuid(EF7FF2DB-EC9A-43BB-BAC6-DDE600E6AB9B),
+	version(1.1),
+	helpstring("FCV 1.1 Type Library")
+]
+library FCVLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(63A1966F-1433-4B98-BCBA-EF6923937B7A)		
+	]
+	dispinterface _IUCRC32Events
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(834D2B07-20A3-464F-90C8-3F4B7FD910BC)		
+	]
+	coclass UCRC32
+	{
+		[default] interface IUCRC32;
+		[default, source] dispinterface _IUCRC32Events;
+	};
+};
+

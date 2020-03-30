@@ -1,0 +1,26 @@
+HKCR
+{
+	FCV.UCRC32.1 = s 'UCRC32 Class'
+	{
+		CLSID = s '{834D2B07-20A3-464F-90C8-3F4B7FD910BC}'
+	}
+	FCV.UCRC32 = s 'UCRC32 Class'
+	{		
+		CurVer = s 'FCV.UCRC32.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {834D2B07-20A3-464F-90C8-3F4B7FD910BC} = s 'UCRC32 Class'
+		{
+			ProgID = s 'FCV.UCRC32.1'
+			VersionIndependentProgID = s 'FCV.UCRC32'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{EF7FF2DB-EC9A-43BB-BAC6-DDE600E6AB9B}'
+			Version = s '1.0'
+		}
+	}
+}
