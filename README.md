@@ -3,10 +3,12 @@ From the Delphi DLL project.
 For CRC32 checksum.    
 
 ## Invoke here
-COM调用 – VB、PB [二、PB部分](https://blog.csdn.net/xiaobin_HLJ80/article/details/17151105)
+[二、PB部分](https://www.cnblogs.com/xiaobin-hlj80/p/5115336.html)
+
+[COM调用 – VB.net](https://github.com/xiaobin80/crcfcn_vc/blob/master/ReadMe.txt)
 
 ## FAQ
-see  [VC migration(FAQ)](https://blog.csdn.net/xiaobin_HLJ80/article/details/18318015)
+see  [VC migration(FAQ)](https://tdtc-hrb.github.io/csdn/post/vc-update-atl/)
 
 ## sln
 ```
