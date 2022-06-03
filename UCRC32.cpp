@@ -177,12 +177,12 @@ char* getLocalMachineTime()
 	time(&long_time);
 	myTime = localtime(&long_time);
 
-	char* result = new char[10];
+	char* result = new char[12];
 
 	int iYear = myTime->tm_year;
 	iYear += 1900;
 
-	char chYear[4];
+	char chYear[5];
 	char* myYear = new char[4];
 	myYear = _itoa(iYear, chYear, 10);
 
@@ -192,7 +192,7 @@ char* getLocalMachineTime()
 	int iMonth = myTime->tm_mon;
 	iMonth += 1;
 
-	char chMonth[2];
+	char chMonth[3];
 	char* myMonth = new char[2];
 	if(iMonth < 10) {
 		strcpy(myMonth, "0");
@@ -206,7 +206,7 @@ char* getLocalMachineTime()
 
 	int iDay = myTime->tm_mday;
 
-	char chDay[2];
+	char chDay[3];
 	char* myDay = new char[2];
 	if(iDay < 10) {
 		strcpy(myDay, "0");
