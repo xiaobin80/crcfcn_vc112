@@ -1,4 +1,4 @@
-========================================================================
+﻿========================================================================
     ACTIVE TEMPLATE LIBRARY : FCV Project Overview
 ========================================================================
 
@@ -82,7 +82,9 @@ FCVps.def
 
 /////////////////////////////////////////////////////////////////////////////
 VB.net client(Windows Forms Application):
-Button envent:
+Button event:
+
+Public Class Form1
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim fcv As New FCVLib.UCRC32
@@ -103,5 +105,32 @@ Button envent:
         Call fcv.SaveFCN(saveFile1, CheckFilePath1)
         Me.Text = "生成FCN文件-完成"
     End Sub
+End Class
+
+/////////////////////////////////////////////////////////////////////////////
+VB.net client(Windows Forms Application):
+Button events:
+
+Public Class Form2
+    Dim fcv As New FCVLib.UCRC32
+
+    Private Sub cmdCal_Click(sender As Object, e As EventArgs) Handles cmdCal.Click
+        '定义要计算的文件(具体路径和文件名称)
+        Dim filePath1 As String
+        filePath1 = filePathTxt.Text
+
+        '调用函数
+        Label_cal.Text = CStr(fcv.CalCRC32(filePath1))
+    End Sub
+
+    Private Sub cmdReadFCV_Click(sender As Object, e As EventArgs) Handles cmdReadFCV.Click
+        '定义要读取的文件(具体路径和文件名称)
+        Dim loadFile1 As String
+        loadFile1 = fcnPathTxt.Text
+
+        '调用函数
+        Label_read.Text = CStr(fcv.ReadFCN(loadFile1))
+    End Sub
+End Class
 
 /////////////////////////////////////////////////////////////////////////////
