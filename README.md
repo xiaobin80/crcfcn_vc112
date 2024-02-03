@@ -13,9 +13,9 @@ see  [VC migration(FAQ)](https://tdtc-hrb.github.io/csdn/post/vc-update-atl/)
 ## sln
 ```
 
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FCV", "FCV\FCV.vcxproj", "{40D59B4B-4758-46A2-9073-F367320991F5}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FCV", "crcfcn_vc112\FCV.vcxproj", "{40D59B4B-4758-46A2-9073-F367320991F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
