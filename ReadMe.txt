@@ -93,10 +93,9 @@ Public Class Form1
         Dim saveFile1 As Object
         Dim CheckFilePath1 As String
 
-        'saveFile1 = "c:\s\datasb.fcn"
         CheckFilePath1 = TextBox1.Text()
 
-        'UPGRADE_WARNING: Couldn't resolve default property of object saveFile1. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+        'saveFile1 = "c:\s\datasb.fcn"
         saveFile1 = TextBox2.Text()
 
 
